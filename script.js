@@ -15,24 +15,43 @@ const statuses = [
     "PREPARING ROUND"
 ];
 
+const events = [
+    "Custom XP Active",
+    "Prestige System Online",
+    "Unlockable Models",
+    "Shop Rewards Enabled",
+    "TTT2 Events Ready"
+];
+
 const tipText = document.getElementById("tipText");
 const statusText = document.getElementById("statusText");
 const progressBar = document.getElementById("progressBar");
 const percentText = document.getElementById("percentText");
 const particles = document.getElementById("particles");
 
+const mapName = document.getElementById("mapName");
+const gameMode = document.getElementById("gameMode");
+const serverEvent = document.getElementById("serverEvent");
+
 let tipIndex = 0;
 let statusIndex = 0;
+let eventIndex = 0;
 let fakeProgress = 0;
 let dots = 0;
 
 function rotateTips() {
     tipIndex = (tipIndex + 1) % tips.length;
     tipText.style.opacity = "0";
+
     setTimeout(() => {
         tipText.textContent = tips[tipIndex];
         tipText.style.opacity = "1";
     }, 250);
+}
+
+function rotateEvents() {
+    eventIndex = (eventIndex + 1) % events.length;
+    serverEvent.textContent = events[eventIndex];
 }
 
 function animateStatus() {
@@ -69,10 +88,23 @@ function createParticles() {
     }
 }
 
-// Garry's Mod loading screen callbacks. These are called automatically by GMod when available.
+function readUrlData() {
+    const params = new URLSearchParams(window.location.search);
+    const map = params.get("map");
+
+    if (map && mapName) {
+        mapName.textContent = map;
+    }
+}
+
 window.GameDetails = function(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
-    if (mapname) {
+    if (mapname && mapName) {
+        mapName.textContent = mapname;
         statuses[3] = "LOADING " + mapname.toUpperCase();
+    }
+
+    if (gamemode && gameMode) {
+        gameMode.textContent = gamemode.toUpperCase();
     }
 };
 
@@ -93,12 +125,22 @@ window.SetFilesNeeded = function(needed) {
     if (total > 0) {
         const realProgress = Math.max(0, Math.min(100, ((total - needed) / total) * 100));
         fakeProgress = Math.max(fakeProgress, realProgress);
+
         progressBar.style.width = fakeProgress.toFixed(0) + "%";
         percentText.textContent = fakeProgress.toFixed(0) + "%";
     }
 };
 
+window.DownloadingFile = function(fileName) {
+    if (fileName) {
+        statusText.textContent = "DOWNLOADING " + fileName.toUpperCase();
+    }
+};
+
+readUrlData();
 createParticles();
+
 setInterval(rotateTips, 5200);
+setInterval(rotateEvents, 4200);
 setInterval(animateStatus, 650);
 setInterval(animateProgress, 850);
