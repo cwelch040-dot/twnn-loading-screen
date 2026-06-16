@@ -10,15 +10,13 @@ body {
     overflow: hidden;
     font-family: "Trebuchet MS", Arial, sans-serif;
     color: #fff;
-    background: #02030a;
+    background: #02030a url("background.png") center center / cover no-repeat;
 }
 
 .bg {
     position: fixed;
     inset: -2%;
-    background-image: url("background.png");
-    background-size: cover;
-    background-position: center;
+    background: url("background.png") center center / cover no-repeat;
     animation: slowZoom 22s ease-in-out infinite alternate;
     filter: contrast(1.08) brightness(0.78) saturate(1.18);
 }
