@@ -1,3 +1,10 @@
+const features = [
+    "Unlockable Models",
+    "Custom Shop Rewards",
+    "Prestige Ranks",
+    "XP Events",
+    "Level Progression"
+];
 const tips = [
     "Earn XP from kills, wins, body IDs and server events.",
     "Prestige after reaching max level to show off your grind.",
@@ -31,13 +38,20 @@ const particles = document.getElementById("particles");
 
 const mapName = document.getElementById("mapName");
 const gameMode = document.getElementById("gameMode");
-const serverEvent = document.getElementById("serverEvent");
+const serverFeature = document.getElementById("serverFeature");
+const playerCount = document.getElementById("playerCount");
 
 let tipIndex = 0;
 let statusIndex = 0;
 let eventIndex = 0;
 let fakeProgress = 0;
 let dots = 0;
+let featureIndex = 0;
+
+function rotateFeatures() {
+    featureIndex = (featureIndex + 1) % features.length;
+    serverFeature.textContent = features[featureIndex];
+}
 
 function rotateTips() {
     tipIndex = (tipIndex + 1) % tips.length;
@@ -144,3 +158,4 @@ setInterval(rotateTips, 5200);
 setInterval(rotateEvents, 4200);
 setInterval(animateStatus, 650);
 setInterval(animateProgress, 850);
+setInterval(rotateFeatures, 5000);
