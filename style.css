@@ -275,3 +275,30 @@ footer {
         font-size: 13px;
     }
 }
+.live-stats {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.stat-box {
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(5, 10, 28, 0.72);
+    border: 1px solid rgba(120, 90, 255, 0.45);
+    box-shadow: 0 0 16px rgba(80, 80, 255, 0.2);
+}
+
+.stat-box span {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 1.4px;
+    color: #9fb7ff;
+    margin-bottom: 4px;
+}
+
+.stat-box strong {
+    color: #ffffff;
+    font-size: 15px;
+}
